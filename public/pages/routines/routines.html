@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./routines.css">
+  <title>Administrar Ejercicios</title>
+</head>
+<header>
+    <h1>LeFit</h1>
+    <nav>
+        <ul>
+            <li><a href="../home/home.html">Inicio</a></li>
+            <li><a href="#">Rutinas</a></li>
+            <li><a href="../exercises/exercises.html">Ejercicios</a></li>
+            <li><a href="../perfil/perfil.html">Perfil</a></li>
+        </ul>
+    </nav>
+</header>
+
+<body>
+  
+    <div class="masterContainer">
+  <div class="routine-container">
+
+    <div class="routine-list">
+      <!-- Aquí se mostrará la lista de rutinas -->
+    </div>
+  
+    <div class="addRoutineContainer">
+      <h2 class="addRoutine" id="toggleFormBtn">Agregar Rutina</h2>
+
+      <form id="addRoutineForm" class="addRoutineForm">
+        <div class="form-group">
+          <label for="name">Nombre:</label>
+          <input type="text" id="name" name="name" placeholder="Ingrese el nombre de la rutina" required>
+        </div>
+        <div class="form-group" id="exerciseInputsContainer">
+          <label for="exercise">Ejercicios:</label>
+          <div class="exercise-inputs">
+            <div class="exercise-input">
+              <input type="text" name="exerciseName" placeholder="Nombre del ejercicio" >
+              <input type="number" name="exerciseReps" placeholder="Reps" >
+              <input type="number" name="exerciseSets" placeholder="Sets" >
+              <input type="text" name="exerciseWeight" placeholder="Peso utilizado (Libras)" >
+              <input type="text" name="coments" placeholder="comentarios" >
+            </div>
+          </div>
+          <button type="button" id="addExerciseBtn">Agregar Ejercicio</button>
+        </div>
+        <button type="submit">Agregar Rutina</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+      
+        <div class="contenedor-rutinas">
+          <h2 class="titulo-rutinas">Lista de Rutinas</h2>
+          <div class="lista-rutinas">
+      
+          </div>
+        </div>
+      </div>
+      
+
+  
+    </div>
+  <script src="./routines.js"></script>
+</body>
+
+</html>

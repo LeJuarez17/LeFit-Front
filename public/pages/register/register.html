@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./register.css">
+  <title>Registrarse - LeFit</title>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Registrarse en LeFit</h1>
+    <form>
+      <div class="form-group">
+        <label for="userName">Nombre de usuario:</label>
+        <input type="text" id="userName" name="username" placeholder="Ingrese su nombre de usuario" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" name="password" placeholder="Ingrese su contraseña" required>
+      </div>
+      <button id="registerBtn" type="submit">Registrarse</button>
+    </form>
+    <p>¿Ya tienes una cuenta? <a href="../login/login.html">Inicia sesión aquí</a></p>
+  </div>
+  <script src="./register.js"></script>
+</body>
+
+</html>

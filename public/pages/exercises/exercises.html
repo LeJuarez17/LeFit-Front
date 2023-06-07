@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./exercises.css">
+  <title>Administrar Ejercicios</title>
+</head>
+<header>
+    <h1>LeFit</h1>
+    <nav>
+        <ul>
+            <li><a href="../home/home.html">Inicio</a></li>
+            <li><a href="../routines/routines.html">Rutinas</a></li>
+    <li><a href="#">Ejercicios</a></li>
+            <li><a href="../perfil/perfil.html">Perfil</a></li>
+        </ul>
+    </nav>
+</header>
+
+<body>
+  <!-- <h1>Ejercicios</h1>
+
+  <div class="exercise-container">
+
+    <div class="exercise-list">
+
+    </div>
+
+    <h2 class="addEx">Agregar Ejercicio</h2>
+
+    <form id="addExerciseForm">
+      <div class="form-group">
+        <label for="name">Nombre:</label>
+        <input type="text" id="name" name="name" placeholder="Ingrese el nombre del ejercicio" required>
+      </div>
+      <div class="form-group">
+        <label for="description">Descripción:</label>
+        <textarea id="description" name="description" placeholder="Ingrese la descripción del ejercicio" required></textarea>
+      </div>
+      <div class="form-group">
+        <label for="muscleGroup">Grupo Muscular:</label>
+        <input type="text" id="muscleGroup" name="muscleGroup" placeholder="Ingrese el grupo muscular del ejercicio" required>
+      </div>
+      <button type="submit">Agregar Ejercicio</button>
+    </form>
+  </div> -->
+  <div class="masterContainer">
+  <div class="exercise-container">
+
+    <div class="exercise-list">
+      <!-- Aquí se mostrará la lista de ejercicios -->
+    </div>
+  
+    <div class="addExContainer">
+      <h2 class="addEx" id="toggleFormBtn">Agregar Ejercicio</h2>
+  
+      <form id="addExerciseForm" class="addExForm">
+        <div class="form-group">
+          <label for="name">Nombre:</label>
+          <input type="text" id="name" name="name" placeholder="Ingrese el nombre del ejercicio" required>
+        </div>
+        <div class="form-group">
+          <label for="description">Descripción:</label>
+          <textarea id="description" name="description" placeholder="Ingrese la descripción del ejercicio" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="muscleGroup">Grupo Muscular:</label>
+          <input type="text" id="muscleGroup" name="muscleGroup" placeholder="Ingrese el grupo muscular del ejercicio" required>
+        </div>
+        <button type="submit">Agregar Ejercicio</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="contenedor-ejercicios">
+    <h2 class="titulo-ejercicios">Lista de Ejercicios</h2>
+    <div class="lista-ejercicios">
+
+    </div>
+  </div>
+  
+
+  
+    </div>
+  <script src="./exercises.js"></script>
+</body>
+
+</html>
