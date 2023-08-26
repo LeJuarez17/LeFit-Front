@@ -70,6 +70,8 @@ const handleLogin = async (e) => {
 
     if (response.status === 200) {
       // Usuario autenticado correctamente, redireccionar a la página de inicio
+      sessionStorage.setItem('token', data.token);
+      console.log(data.token);
       window.location.href = '../home/home.html';
     } else {
         // Error en la autenticación, mostrar mensaje de error en tu interfaz

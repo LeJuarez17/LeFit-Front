@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LeFit - Programa de Control de Rutinas de Ejercicio</title>
+  <link rel="stylesheet" type="text/css" href="./profile.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header>
+    <h1>LeFit</h1>
+    <nav>
+      <ul>
+        <li><a href="../home/home.html">Inicio</a></li>
+        <li><a href="../routines/routines.html">Rutinas</a></li>
+        <li><a href="../exercises/exercises.html">Ejercicios</a></li>
+        <li><a href="#">Perfil</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div>
+    <button id="signoutBtn">Cerrar sesión</button>
+
+    <h2>Perfil del Usuario</h2>
+
+    <label for="exerciseSelect">Seleccione un ejercicio:</label>
+    <select id="exerciseSelect">
+      
+    </select>
+
+    <div >
+      <canvas id="pesosGrafico" ></canvas>
+    </div>
+    <table id="tablaDatos">
+      <thead>
+        <tr>
+          <th>Rutina</th>
+          <th>Peso utilizado (lbs)</th>
+        </tr>
+      </thead>
+      <tbody id="tablaDatosBody">
+        
+      </tbody>
+    </table>
+  </div>
+
+  <script src="./profile.js"></script>
+</body>
+</html>

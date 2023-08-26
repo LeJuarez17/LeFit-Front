@@ -13,9 +13,25 @@ toggleFormBtn.addEventListener('click', () => {
 
 const listaEjercicios = document.querySelector('.lista-ejercicios');
 
+const authToken = sessionStorage.getItem('token') || '';
+
 const obtenerEjercicios = async () => {
   try {
-    const response = await fetch('http://localhost:3001/api/exercises');
+
+    if (!authToken) {
+      // Si no hay token, redirigir a la página de inicio de sesión o mostrar mensaje de error.
+      console.log('Usuario no autenticado. Redirigiendo...');
+      // Puedes usar window.location.href = '/login'; para redirigir a la página de inicio de sesión.
+      window.location.href = '../login/login.html';
+      return;
+    }
+
+    const response = await fetch('http://localhost:3001/api/exercises', {
+      headers: {
+        Authorization: `Bearer ${authToken}`, // Agregar el token en la cabecera de la solicitud
+      },
+    });
+
     const data = await response.json();
 
     if (response.ok) {

@@ -501,3 +501,27 @@ p {
     top:60px;
     left:370px;
   }
+
+#signoutBtn {
+
+  background-color: #f44336; 
+  color: #fff; 
+  border: none;
+  padding: 12px 24px; 
+  font-size: 16px;
+  border-radius: 8px; 
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s; 
+}
+
+
+#signoutBtn:hover {
+  background-color: #d32f2f; 
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); 
+}
+
+
+#signoutBtn:active {
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); 
+}
+

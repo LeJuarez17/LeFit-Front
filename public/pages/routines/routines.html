@@ -14,7 +14,7 @@
             <li><a href="../home/home.html">Inicio</a></li>
             <li><a href="#">Rutinas</a></li>
             <li><a href="../exercises/exercises.html">Ejercicios</a></li>
-            <li><a href="../perfil/perfil.html">Perfil</a></li>
+            <li><a href="../profile/profile.html  ">Perfil</a></li>
         </ul>
     </nav>
 </header>
@@ -29,7 +29,7 @@
     </div>
   
     <div class="addRoutineContainer">
-      <h2 class="addRoutine" id="toggleFormBtn">Agregar Rutina</h2>
+      <h2 class="addRoutine" id="toggleFormBtn">Nueva Rutina</h2>
 
       <form id="addRoutineForm" class="addRoutineForm">
         <div class="form-group">
@@ -40,16 +40,19 @@
           <label for="exercise">Ejercicios:</label>
           <div class="exercise-inputs">
             <div class="exercise-input">
-              <input type="text" name="exerciseName" placeholder="Nombre del ejercicio" >
-              <input type="number" name="exerciseReps" placeholder="Reps" >
-              <input type="number" name="exerciseSets" placeholder="Sets" >
-              <input type="text" name="exerciseWeight" placeholder="Peso utilizado (Libras)" >
-              <input type="text" name="coments" placeholder="comentarios" >
+              <select name="exerciseSelect" id="exerciseSelect">
+                <option value="" selected disabled>Seleccione un ejercicio</option>
+                <!-- Aquí se mostrarán las opciones de ejercicios disponibles -->
+              </select>
+              <input type="number" name="exerciseReps" id="exerciseReps" placeholder="Reps" >
+              <input type="number" name="exerciseSets" id="exerciseSets" placeholder="Sets" >
+              <input type="text" name="exerciseWeight" id="exerciseWeight" placeholder="Peso utilizado (Libras)" >
+              <input type="text" name="coments" id="comments" placeholder="comentarios" >
             </div>
           </div>
           <button type="button" id="addExerciseBtn">Agregar Ejercicio</button>
+          <button type="submit">Agregar Rutina</button>
         </div>
-        <button type="submit">Agregar Rutina</button>
       </form>
     </div>
   </div>

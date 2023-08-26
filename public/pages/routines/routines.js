@@ -10,10 +10,31 @@ toggleFormBtn.addEventListener('click', () => {
 
 const listaRutinas = document.querySelector('.lista-rutinas');
 
+const authToken = sessionStorage.getItem('token') || '';
+let selectedExercises = [];
+
 const obtenerRutinas = async () => {
   try {
-    const response = await fetch('http://localhost:3001/api/routines');
+    // const response = await fetch('http://localhost:3001/api/routines');
+    // const data = await response.json();
+
+    if (!authToken) {
+      
+      console.log('Usuario no autenticado. Redirigiendo...');
+
+      window.location.href = '../login/login.html';
+      return;
+    }
+
+    const response = await fetch('http://localhost:3001/api/routines', {
+      headers: {
+        Authorization: `Bearer ${authToken}`, 
+      },
+    });
+
     const data = await response.json();
+
+
 
     if (response.ok) {
       const rutinas = data.data;
@@ -46,6 +67,7 @@ const obtenerRutinas = async () => {
 
           const ejercicioPeso = document.createElement('p');
           ejercicioPeso.textContent = `Peso utilizado: ${ejercicio.weight}`;
+          
 
 
           ejercicioItem.appendChild(ejercicioNombre);
@@ -73,11 +95,96 @@ obtenerRutinas();
 
 
 
+const obtenerEjerciciosDisponibles = async () => {
+  try {
+    const response = await fetch('http://localhost:3001/api/exercises', {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error('No se pudo obtener la lista de ejercicios');
+    }
+
+    const data = await response.json();
+    return data.data;
+  } catch (error) {
+    console.log('Error al obtener la lista de ejercicios', error);
+    return [];
+  }
+};
+
+
+const llenarSelectEjercicios = (ejercicios) => {
+  const exerciseSelect = document.getElementById('exerciseSelect');
+  exerciseSelect.innerHTML = '<option value="" selected disabled>Seleccione un ejercicio</option>';
+
+  ejercicios.forEach((ejercicio) => {
+    const option = document.createElement('option');
+    option.value = ejercicio._id; 
+    option.textContent = ejercicio.name; 
+    exerciseSelect.appendChild(option);
+  });
+};
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  obtenerEjerciciosDisponibles()
+    .then((ejercicios) => {
+      llenarSelectEjercicios(ejercicios);
+    })
+    .catch((error) => {
+      console.log('Error al obtener la lista de ejercicios', error);
+    });
+});
+
+
+const agregarEjercicioSeleccionado = () => {
+  const exerciseSelect = document.getElementById('exerciseSelect');
+  const selectedExerciseId = exerciseSelect.value;
+
+  if (!selectedExerciseId) {
+    alert('Seleccione un ejercicio válido');
+    return;
+  }
+
+  const selectedExerciseName = exerciseSelect.options[exerciseSelect.selectedIndex].text;
+  const exerciseReps = document.getElementById('exerciseReps').value;
+  const exerciseSets = document.getElementById('exerciseSets').value;
+  const exerciseWeight = document.getElementById('exerciseWeight').value;
+  const comments = document.getElementById('comments').value;
+  const exerciseInput = document.createElement('div');
+  exerciseInput.classList.add('exercise-input');
+  exerciseInput.innerHTML = `
+    <input type="text" name="exerciseName" value="${selectedExerciseName}" readonly>
+    <input type="number" name="exerciseReps" value="${exerciseReps}" readonly>
+    <input type="number" name="exerciseSets" value="${exerciseSets}" readonly>
+    <input type="number" name="exerciseWeight" value="${exerciseWeight}" readonly>
+    <input type="text" name="comments" value="${comments}" readonly>
+  `;
+  const exerciseInputsContainer = document.getElementById('exerciseInputsContainer');
+
+
+  exerciseSelect.classList.add('exercise-select');
+  exerciseSelect.selectedIndex = 0;
+
+  selectedExercises.push({
+    _id: selectedExerciseId,
+    name: selectedExerciseName,
+  });
+
+
+  const exerciseContainer = document.createElement('div');
+  exerciseContainer.classList.add('exercise-container');
+  exerciseContainer.appendChild(exerciseInput);
+
+  exerciseInputsContainer.appendChild(exerciseContainer);
+};
 
 
 
 
-const exerciseInputsContainer = document.getElementById('exerciseInputsContainer');
 const addExerciseBtn = document.getElementById('addExerciseBtn');
 
 toggleFormBtn.addEventListener('click', () => {
@@ -96,71 +203,62 @@ toggleFormBtn.addEventListener('click', () => {
 // });
 
 addExerciseBtn.addEventListener('click', () => {
-  const exerciseInput = document.createElement('div');
-  exerciseInput.classList.add('exercise-input');
-  exerciseInput.innerHTML = `
-    <input type="text" name="exerciseName" placeholder="Nombre del ejercicio" required>
-    <input type="number" name="exerciseReps" placeholder="Reps" >
-    <input type="number" name="exerciseSets" placeholder="Sets" >
-    <input type="text" name="exerciseWeight" placeholder="Peso utilizado (Libras)" >
-    <input type="text" name="comments" placeholder="comentarios" >
-  `;
-  exerciseInputsContainer.appendChild(exerciseInput);
+  agregarEjercicioSeleccionado(); 
+  addRoutineForm.reset();
 });
+
 
 
 addRoutineForm.addEventListener('submit', (e) => {
   e.preventDefault();
 
   const name = document.getElementById('name').value;
-  const exerciseInputs = document.querySelectorAll('.exercise-input');
+  const exerciseContainers = document.querySelectorAll('.exercise-container');
 
-  // const exercises = Array.from(exerciseInputs).map((input) => {
-  //   const exerciseName = input.querySelector('input[name="exerciseName"]').value;
-  //   const exerciseReps = input.querySelector('input[name="exerciseReps"]').value;
-  //   const exerciseSets = input.querySelector('input[name="exerciseSets"]').value;
+  selectedExercises = selectedExercises.map((exercise) => {
+    const selectedExerciseName = exercise.name;
+    const container = [...exerciseContainers].find((elem) =>
+      elem.querySelector('input[name="exerciseName"]').value === selectedExerciseName
+    );
 
-  //   return {
-  //     name: exerciseName,
-  //     reps: exerciseReps,
-  //     sets: exerciseSets,
-  //   };
-  // });
+    if (!container) return exercise;
 
-  const exercises = Array.from(exerciseInputs).map((input) => {
-    const exerciseName = input.querySelector('input[name="exerciseName"]').value;
-    const exerciseReps = input.querySelector('input[name="exerciseReps"]').value;
-    const exerciseSets = input.querySelector('input[name="exerciseSets"]').value;
-    const weight = input.querySelector('input[name="exerciseWeight"]').value;
-  
+    const exerciseReps = container.querySelector('input[name="exerciseReps"]').value;
+    console.log(exerciseReps); 
+    // debugger
+    const exerciseSets = container.querySelector('input[name="exerciseSets"]').value;
+    const exerciseWeight = container.querySelector('input[name="exerciseWeight"]').value;
+    const comments = container.querySelector('input[name="comments"]').value;
+
     return {
-      name: exerciseName,
+      ...exercise,
       reps: exerciseReps,
       sets: exerciseSets,
-      weight: weight,
+      weight: exerciseWeight,
+      comments: comments,
     };
   });
-  
 
   const routineData = {
     name,
-    exercises,
+    selectedExercises,
   };
 
   fetch('http://localhost:3001/api/routines', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      Authorization: `Bearer ${authToken}`,
     },
     body: JSON.stringify(routineData),
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log(data); // Puedes hacer algo con la respuesta, como mostrar un mensaje de éxito o actualizar la lista de rutinas.
-      addRoutineForm.reset(); // Reiniciar el formulario después de enviarlo correctamente.
+      console.log(data); 
+      addRoutineForm.reset(); 
       location.reload();
     })
     .catch((error) => {
-      console.log(error); // Manejar errores de la solicitud.
+      console.log(error); 
     });
 });
